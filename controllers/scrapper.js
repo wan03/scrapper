@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 
-(async () => {
+module.exports = async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(
@@ -19,15 +19,10 @@ const puppeteer = require("puppeteer");
           ".icbu-buyer-list-bbc-newarrival-offer-price"
         ).textContent;
         let url = e.querySelector("a").getAttribute("href");
-        let image = e
-          .querySelector(".icbu-buyer-list-bbc-newarrival-offer-image-box")
-          .getAttribute("src");
-        data.push({ title, price, url, image });
+        data.push({ title, price, url });
       });
     return data;
   });
   await browser.close();
   return result;
-})().then(value => {
-  console.log(value);
-});
+};

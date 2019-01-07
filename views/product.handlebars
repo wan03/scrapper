@@ -1,0 +1,28 @@
+<div class="card text-center">
+  <div class="card-header">
+
+  </div>
+  <div class="card-body">
+    <h4 class="card-title"><a href="{{product.url}}">{{product.title}}</a></h4>
+    <p class="card-text">{{product.price}}</p>
+    <a href="/" class="btn btn-primary">Go back</a>
+  </div>
+  <div class="card-footer text-muted">
+  </div>
+</div>
+
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Add Comment" aria-label="comment" aria-describedby="basic-addon2"
+    id="textComment">
+  <div class="input-group-append">
+    <button class="btn btn-primary" id="addComment" data-id="{{product._id}}" type="button">Go!</button>
+  </div>
+</div>
+
+<ul class="list-group" id="comments">
+  {{#each product.comment}}
+  <li class="list-group-item">{{body}}<span class="btn btn-primary deleteComment" data-id="{{_id}}">X
+      </a></li>
+
+  {{/each}}
+</ul>

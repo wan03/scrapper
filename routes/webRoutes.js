@@ -1,13 +1,15 @@
-const express = require("express");
-const router = express.Router();
 const webController = require("../controllers/webController");
 
-const userController = require("../controllers/webController");
+module.exports = function(app) {
+  app.get("/", webController.home);
 
-router.get("/", webController.home);
+  app.get("/products", webController.products);
+  app.get("/product/:id", webController.product);
+  app.get("/scrape", webController.scrape);
 
-router.get("/products", webController.products);
-
-router.post("/products", webController.addComment);
-
-module.exports = router;
+  app.post("/comment/:id", webController.addComment);
+  app.delete("/comment/:id", webController.deleteComment);
+  app.get("*", function(req, res) {
+    res.render("404");
+  });
+};
