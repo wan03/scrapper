@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer");
 
 module.exports = async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
   const page = await browser.newPage();
   await page.goto(
     "https://www.alibaba.com/industry/product.html?spm=a2700.8293689.categoryInfoIndustry-1.2.9c8214be5MBhAp&contentId=1031144&contentType=trend&throughOfferIds=60818391150,60817335906,60797921720",
