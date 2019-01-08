@@ -20,6 +20,7 @@ module.exports = {
   },
   addComment: (req, res) => {
     let _id = req.body.id;
+    console.log(_id);
     let body = req.body.body;
     let comment = Comment.create({ body: body });
     comment.then(comment => {
@@ -27,14 +28,10 @@ module.exports = {
         { _id },
         { $push: { comment: comment._id } },
         { new: true }
-      )
-        .populate("comment")
-        .then(data => {
-          let hbsObjects = {
-            product: data
-          };
-          res.render("product", hbsObjects);
-        });
+      ).then(() => {
+        console.log("redirect");
+        res.json({ result: "success" });
+      });
     });
 
     // Add comment to db
@@ -44,11 +41,8 @@ module.exports = {
     Comment.findByIdAndDelete({ _id }).then(
       Product.findOneAndUpdate({ comment: _id }, { $pull: { comment: _id } })
         .populate("comment")
-        .then(data => {
-          let hbsObjects = {
-            product: data
-          };
-          res.render("product", hbsObjects);
+        .then(() => {
+          res.redirect("back");
         })
     );
   },

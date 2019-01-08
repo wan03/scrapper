@@ -4,15 +4,16 @@ $(function() {
       .val()
       .trim();
     id = $(this).data("id");
-    console.log(id + "__________________" + "\n" + body + "***************");
-
     $.ajax("/comment/" + id, {
       type: "POST",
       data: { body: body, id: id }
-    }).then(location.reload());
+    }).then(data => {
+      if (data) {
+        location.reload(true);
+      }
+    });
   });
   $("ul#comments").on("click", ".deleteComment", function() {
-    console.log("delete");
     id = $(this).data("id");
     $.ajax("/comment/" + id, {
       type: "DELETE",
