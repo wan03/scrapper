@@ -1,7 +1,7 @@
 {
   "name": "scrapper",
   "engines": {
-    "node": "8.11.3"
+    "node": "8.x.x"
   },
   "version": "1.0.0",
   "description": "",

@@ -27,12 +27,14 @@ module.exports = {
         { _id },
         { $push: { comment: comment._id } },
         { new: true }
-      ).then(data => {
-        let hbsObjects = {
-          product: data
-        };
-        res.render("product", hbsObjects);
-      });
+      )
+        .populate("comment")
+        .then(data => {
+          let hbsObjects = {
+            product: data
+          };
+          res.render("product", hbsObjects);
+        });
     });
 
     // Add comment to db
@@ -40,16 +42,14 @@ module.exports = {
   deleteComment: (req, res) => {
     let _id = req.body.id;
     Comment.findByIdAndDelete({ _id }).then(
-      Product.findOneAndUpdate(
-        { comment: _id },
-        { $pull: { comment: _id } },
-        data => {
+      Product.findOneAndUpdate({ comment: _id }, { $pull: { comment: _id } })
+        .populate("comment")
+        .then(data => {
           let hbsObjects = {
             product: data
           };
           res.render("product", hbsObjects);
-        }
-      )
+        })
     );
   },
   products: (req, res) => {
